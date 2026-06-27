@@ -6,6 +6,8 @@ This repository is a public-safe portfolio case prepared by **QIAN Boyu (Bowie)*
 
 The repository is not intended to publish production code or prove traditional software engineering depth. It presents an early-stage AI product concept through problem framing, workflow design, system architecture, responsible AI boundaries, and portfolio-safe documentation.
 
+In this portfolio, AI OPC refers to AI-enabled Operational Productivity Consulting: using AI workflows, structured knowledge systems, and human-in-the-loop processes to improve advisory and operational decisions.
+
 Applicant context:
 
 - Legal name: QIAN Boyu.
@@ -159,7 +161,7 @@ This project fits SUTD DAI-E because it connects design, AI, and enterprise work
 - Design advisor dashboard.
 - Create sample reports.
 - Add source provenance tracking.
-- Develop evaluation rubric.
+- Apply the evaluation rubric to synthetic reports and advisor-reviewed pilot cases.
 - Prepare pilot consultation workflow.
 
 ## Public-Safe Scope

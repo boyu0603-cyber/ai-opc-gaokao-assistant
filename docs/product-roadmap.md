@@ -29,6 +29,8 @@ Planned work:
 - Design privacy-aware data handling.
 - Create advisor-readable profile output.
 
+The immediate next milestone is to create a clickable intake prototype and one advisor-reviewed synthetic report.
+
 ## Stage 2: Sample Report Generator
 
 Goal: Generate draft planning summaries from structured input using synthetic or consent-approved data.

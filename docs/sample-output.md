@@ -102,4 +102,17 @@ After advisor review, the summary should be revised to:
 - Rebalance conservative, balanced, and ambitious categories.
 - Include open questions for the next consultation.
 
+## Advisor-ready Output Format
+
+The intended final report structure is:
+
+- Student Profile Summary
+- Key Constraints
+- Preference Summary
+- Candidate Plan Categories
+- Risk Explanation
+- Open Questions
+- Advisor Notes
+- Next Consultation Actions
+
 This example is intentionally generic and synthetic. It is included to show report structure, not to provide real admission advice.
