@@ -93,16 +93,31 @@ The workflow follows a structured decision-support pattern:
 
 See [docs/workflow.md](docs/workflow.md) for the detailed workflow.
 
-## Current Status
+## Current Implementation Status
 
-This repository is a public-safe portfolio version. It is suitable for sharing with admissions reviewers, academic mentors, and collaborators who need to understand the design thinking behind the project without accessing private code or data.
+This project is currently at the early product validation and workflow design stage.
 
-The current documentation includes:
+Completed:
+- Product problem framing
+- User decision journey design
+- Public-safe system architecture
+- Human-in-the-loop workflow design
+- AI-assisted report structure planning
+- Service packaging and consultation workflow exploration
 
-- Project overview.
-- System architecture.
-- Workflow design.
-- Lessons learned and next steps.
+In progress:
+- Intake form design
+- Sample advisory report generation
+- Data source and provenance framework
+- Advisor review workflow
+- User-facing demo materials
+
+Not included in this public repository:
+- Private prompts
+- Real student cases
+- Production code
+- Internal scoring rules
+- Commercial service materials
 
 ## Lessons Learned
 
