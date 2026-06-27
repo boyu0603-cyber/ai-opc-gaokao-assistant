@@ -1,157 +1,146 @@
 # System Architecture
 
-## Architecture Goal
+## High-level Architecture
 
-The AI-OPC Gaokao Assistant is designed as a decision-support system, not an autonomous decision-maker. The architecture aims to combine structured data capture, controlled AI reasoning, knowledge support, and human review.
+The AI OPC Gaokao Assistant is designed as a human-in-the-loop decision-support system. It separates intake, profile normalization, knowledge support, preference modeling, AI-assisted planning, explanation, advisor review, and final summary generation.
 
-The main design priorities are:
+The architecture is intentionally modular so that each layer can be reviewed, improved, or replaced without treating the AI model as a single black box.
 
-- Explainability.
-- Privacy protection.
-- Modular components.
-- Iterative planning.
-- Clear separation between factual context and AI-generated reasoning.
-
-## High-Level Architecture
-
-```text
-User / Advisor
-     |
-     v
-Intake Interface
-     |
-     v
-Profile Normalization Layer
-     |
-     +--------------------+
-     |                    |
-     v                    v
-Knowledge Support     Preference & Constraint Model
-     |                    |
-     +---------+----------+
-               |
-               v
-AI-Assisted Planning Layer
-               |
-               v
-Explanation & Review Layer
-               |
-               v
-Planning Summary / Iteration Loop
+```mermaid
+flowchart TD
+    A["Student / Family / Advisor"] --> B["Intake Interface"]
+    B --> C["Profile Normalization"]
+    C --> D["Knowledge Support"]
+    D --> E["Preference & Constraint Model"]
+    E --> F["AI-assisted Planning"]
+    F --> G["Explanation & Review"]
+    G --> H["Human Advisor Feedback"]
+    H --> I["Final Planning Summary"]
+    H --> C
 ```
 
-## Component Overview
+## Intake Layer
 
-### 1. Intake Interface
+The intake layer collects the planning context before any recommendation is drafted.
 
-The intake interface collects user-provided information such as academic background, location context, subject direction, major interests, geographic preferences, family expectations, and risk tolerance.
+Public-safe intake categories include:
 
-The public documentation does not include real user profiles, private forms, chat logs, or personal data.
+- Student background.
+- Province or regional context.
+- Score or rank category, if provided by the user in a private setting.
+- Subject direction.
+- Major and career interests.
+- Preferred regions or cities.
+- Family expectations.
+- Risk tolerance.
 
-### 2. Profile Normalization Layer
+In this repository, no real intake records are included.
 
-This layer converts unstructured or semi-structured input into a consistent planning profile.
+## Profile Normalization Layer
 
-Example responsibilities:
+The profile normalization layer converts unstructured input into a consistent planning profile. This step helps the system avoid treating incomplete user statements as final facts.
 
-- Standardizing preference categories.
-- Identifying missing fields.
+Responsibilities include:
+
 - Separating hard constraints from soft preferences.
-- Preparing a structured context for downstream reasoning.
+- Identifying missing fields.
+- Detecting preference conflicts.
+- Preparing a structured context for planning.
+- Marking assumptions that need confirmation.
 
-This layer helps reduce ambiguity before AI-generated recommendations are produced.
+## Knowledge Support Layer
 
-### 3. Knowledge Support
+The knowledge support layer is responsible for connecting planning discussions to approved information sources. In a future prototype, this layer could support retrieval from public policy pages, institution descriptions, major information, or advisor-curated references.
 
-The knowledge support component is responsible for grounding planning discussions in approved reference material. In a production-oriented design, this could include public policy information, school and major descriptions, historical admission references, and advisor-approved materials.
+Design requirements:
 
-Important design principles:
-
-- Retrieved information should be traceable.
+- Public or approved sources should be traceable.
 - Outdated or uncertain information should be flagged.
-- AI-generated reasoning should not be confused with verified facts.
+- AI-generated interpretation should be separated from source-backed facts.
 - Sensitive or unauthorized data should not be used.
 
-### 4. Preference & Constraint Model
+## Preference and Constraint Model
 
-This component represents the student's decision conditions in a structured way.
+The preference and constraint model represents the student's decision conditions in a structured way.
 
-Potential categories include:
+Example categories:
 
 - Academic profile.
-- Province or region context.
-- Major and career interests.
-- Institution preferences.
-- Geographic preferences.
+- Regional rules and application context.
+- School preference.
+- Major preference.
+- Career direction.
+- Location preference.
 - Family constraints.
 - Risk tolerance.
 
-This public document does not disclose proprietary scoring rules or recommendation parameters.
+This public version does not disclose internal weighting logic, scoring parameters, or proprietary recommendation rules.
 
-### 5. AI-Assisted Planning Layer
+## AI-assisted Planning Layer
 
-The planning layer uses AI to support reasoning and explanation. It may help compare candidate options, summarize trade-offs, and generate planning narratives.
+The AI-assisted planning layer supports reasoning and draft generation. It can help compare candidate options, summarize trade-offs, and produce explainable planning narratives.
 
-The AI is positioned as a workflow assistant. It should not independently make final decisions or present uncertain outputs as guaranteed outcomes.
+Public-safe planning outputs may include:
 
-Public-safe AI tasks include:
+- Conservative category.
+- Balanced category.
+- Ambitious category.
+- Clarification questions.
+- Draft explanation notes.
+- Advisor review checklist.
 
-- Clarifying ambiguous input.
-- Summarizing option trade-offs.
-- Explaining why a plan may be conservative, balanced, or ambitious.
-- Producing readable planning summaries.
-- Suggesting additional questions for human review.
+The AI layer is not treated as a final decision authority.
 
-### 6. Explanation & Review Layer
+## Explanation and Review Layer
 
-This layer turns internal planning output into user-facing explanations.
+The explanation and review layer turns draft planning output into language that can be evaluated by a human advisor and discussed with a family.
 
-A strong explanation should include:
+Good explanations should show:
 
 - Key assumptions.
-- Main recommendation logic.
-- Areas of uncertainty.
-- Trade-offs among choices.
-- Questions requiring human judgment.
+- Reasons behind candidate categories.
+- Known uncertainty.
+- Trade-offs between major, school, location, and risk.
+- Questions that still require human judgment.
 
-Human review is part of the architecture, especially because Gaokao application planning is high-impact and context-dependent.
+## Human Advisor Loop
 
-### 7. Planning Summary and Iteration Loop
+The human advisor loop is a core part of the system. The advisor reviews the AI-assisted draft before it becomes part of consultation output.
 
-The final output is not a one-time answer. The system is designed to support iteration as users update preferences, add constraints, or reconsider trade-offs.
+Advisor actions may include:
 
-The loop encourages the user or advisor to:
+- Correcting profile assumptions.
+- Removing unsuitable options.
+- Requesting more evidence.
+- Rewriting risk explanations.
+- Asking the family to clarify priorities.
+- Approving a revised summary for discussion.
 
-- Validate assumptions.
-- Correct missing or inaccurate fields.
-- Re-rank priorities.
-- Compare alternative plans.
-- Generate a revised planning summary.
+## Output Summary Layer
 
-## Enterprise AI Relevance
+The output summary layer prepares a readable final report for the student and family. It should be concise, transparent, and reviewable.
 
-Although the project is education-focused, the architecture is relevant to enterprise AI systems because it follows patterns common in decision-support products:
+Possible sections:
 
-- Structured intake before model reasoning.
-- Human-in-the-loop review.
-- Retrieval-assisted context.
-- Explainable output generation.
-- Modular pipeline design.
-- Privacy and compliance boundaries.
-- Audit-friendly documentation.
+- Structured intake summary.
+- Preference and constraint summary.
+- Candidate plan categories.
+- Risk explanation.
+- Open questions.
+- Advisor notes.
+- Recommended next actions.
 
-The same design logic can be applied to domains such as customer advisory, employee support, compliance triage, financial planning support, and internal knowledge management.
+## Limitations
 
-## Public-Safe Boundaries
+This is a public-safe portfolio version and early-stage prototype documentation.
 
-This architecture document intentionally excludes:
+Current limitations include:
 
-- API credentials.
-- Private environment settings.
-- Internal prompts.
-- User conversation logs.
-- Real student data.
-- Proprietary scoring formulas.
-- Production deployment details that could expose private systems.
+- No public production code.
+- No real student data or consultation records.
+- No private prompts or scoring rules.
+- No claim of automated admission prediction.
+- No claim that recommendations are guaranteed.
+- No complete deployment, audit, or compliance framework yet.
 
-The goal is to communicate the system design clearly while keeping implementation-sensitive information private.
+The next stage is to build a controlled intake prototype and advisor review workflow with clear data governance.

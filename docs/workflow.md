@@ -1,33 +1,34 @@
 # Workflow
 
-## Workflow Objective
+## Workflow Goal
 
-The workflow of the AI-OPC Gaokao Assistant is designed to help students and families move from unclear goals to a structured, reviewable application plan.
+The workflow helps students, families, and advisors move from unclear preferences to a structured, reviewable planning summary. AI supports the workflow by organizing information, drafting explanations, and surfacing uncertainty. Final judgment remains with human users and advisors.
 
-The workflow does not assume that an AI model can replace human judgment. Instead, it uses AI to organize information, ask better questions, explain trade-offs, and support iterative planning.
+```mermaid
+flowchart LR
+    A["Initial Intake"] --> B["Clarification"]
+    B --> C["Data Support"]
+    C --> D["Draft Plan"]
+    D --> E["Risk Explanation"]
+    E --> F["Human Review"]
+    F --> G["Revision"]
+    G --> H["Final Report"]
+    G --> B
+```
 
-## Stage 1: Initial Intake
+## Step-by-step Workflow
 
-The process begins by collecting the student's basic planning context.
+### 1. Initial Intake
 
-Typical public-safe intake categories include:
+The student and family provide basic planning context, including academic background, region, subject direction, major interests, location preferences, family expectations, and risk tolerance.
 
-- Academic background.
-- Province or regional context.
-- Subject direction.
-- Target majors or career interests.
-- Preferred cities or regions.
-- Institution preferences.
-- Family expectations.
-- Risk tolerance.
+The system should not generate a final recommendation at this stage. The goal is to collect enough context for structured planning.
 
-At this stage, the system should avoid making recommendations too early. The goal is to understand the decision context.
+### 2. Profile Structuring
 
-## Stage 2: Profile Structuring
+The assistant converts raw input into a structured profile.
 
-The assistant converts the intake information into a structured profile.
-
-This step helps identify:
+This includes:
 
 - Hard constraints.
 - Soft preferences.
@@ -35,111 +36,83 @@ This step helps identify:
 - Conflicting priorities.
 - Assumptions that need confirmation.
 
-For example, a student may prefer a specific city but also prioritize a major that is stronger elsewhere. The workflow should surface this conflict before generating a final plan.
+### 3. Clarification Questions
 
-## Stage 3: Clarification
+If the profile is incomplete or inconsistent, the assistant generates targeted questions.
 
-If the profile is incomplete, the assistant asks targeted follow-up questions.
+Examples of clarification areas:
 
-Good clarification questions are specific and decision-relevant. They should help determine:
+- Whether major fit or school reputation matters more.
+- Whether the family prefers stability or higher upside.
+- Whether location is a hard constraint.
+- Whether certain majors or regions should be excluded.
 
-- Whether location or major fit matters more.
-- Whether the family prefers lower risk or higher upside.
-- Whether employment outlook, academic interest, or school reputation is the top priority.
-- Whether certain schools, regions, or majors should be excluded.
+### 4. Knowledge Retrieval / Public Data Support
 
-This stage reduces the chance of producing confident but poorly matched recommendations.
+The workflow uses public or advisor-approved information to support planning. This may include institution descriptions, major context, policy references, or historical public information.
 
-## Stage 4: Context Support
+The system should mark source provenance and distinguish between source-backed facts and AI-generated interpretation.
 
-The workflow then brings in relevant reference information from approved sources or curated materials.
+### 5. Candidate Plan Generation
 
-The purpose is to support reasoning with context such as:
+The assistant drafts candidate plan categories based on the structured profile and available context.
 
-- Institution characteristics.
-- Major descriptions.
-- Policy considerations.
-- Historical application references.
-- Career and study-path considerations.
+Public-safe categories include:
 
-The assistant should clearly distinguish retrieved or referenced information from AI-generated interpretation.
+- Conservative.
+- Balanced.
+- Ambitious.
 
-## Stage 5: Candidate Plan Generation
+This repository does not disclose private scoring formulas, weighting logic, or internal ranking rules.
 
-The system generates candidate application options based on the structured profile and context.
+### 6. Risk Explanation
 
-At a public-safe level, options may be grouped by risk posture:
+Each category should include a plain-language risk explanation.
 
-- Conservative options.
-- Balanced options.
-- Ambitious options.
+The explanation should address:
 
-This document does not disclose internal scoring formulas, private weighting rules, or proprietary recommendation parameters.
-
-## Stage 6: Explanation
-
-Each candidate plan should be accompanied by a clear explanation.
-
-Useful explanations include:
-
-- Why the option may fit the student's goals.
+- Why the category may fit the profile.
 - What trade-offs are involved.
-- Which assumptions the plan depends on.
-- What information should be verified.
-- How the option compares with alternatives.
+- What assumptions affect the recommendation.
+- What uncertainty should be reviewed.
 
-The explanation layer is especially important because families need to understand the reasoning before trusting or revising a plan.
+### 7. Human Advisor Review
 
-## Stage 7: Human Review
+A human advisor reviews the draft before it is presented as consultation material.
 
-The workflow expects human review before any final decision.
+The advisor checks:
 
-Users or advisors should be able to:
+- Profile accuracy.
+- Source relevance.
+- Risk language.
+- Missing caveats.
+- Whether the plan matches the family priorities.
 
-- Correct profile information.
-- Reject unsuitable options.
-- Reorder priorities.
-- Add new constraints.
-- Ask for alternative strategies.
+### 8. Iteration with Student / Family
 
-Human review is treated as a system feature rather than an exception.
+The student and family respond to the reviewed draft. They may adjust preferences, reject options, add constraints, or request a different risk balance.
 
-## Stage 8: Iteration and Final Summary
+The workflow then loops back to clarification or profile structuring.
 
-After review, the assistant updates the plan and produces a revised summary.
+### 9. Final Summary Report
 
-A useful final summary should include:
+The final report summarizes:
 
-- Student profile assumptions.
-- Main preferences and constraints.
+- Structured profile assumptions.
+- Preference and constraint summary.
 - Candidate plan categories.
 - Key trade-offs.
-- Open questions.
+- Risk notes.
+- Advisor review notes.
 - Suggested next actions.
 
-Because Gaokao application planning changes as new information appears, the workflow is designed to support multiple iterations.
+The report is a decision-support artifact, not an automated decision.
 
 ## Workflow Principles
 
-The project follows several workflow principles:
-
-- Ask clarifying questions before generating major recommendations.
-- Keep user preferences structured and revisable.
-- Make assumptions visible.
-- Separate factual context from AI reasoning.
-- Keep humans responsible for final decisions.
-- Avoid exposing sensitive implementation details in public materials.
-
-## Current Status
-
-The current public version documents the workflow as a portfolio case. It does not include private user sessions, personal information, internal prompts, production code, or sensitive data.
-
-## Next Steps
-
-Future workflow improvements may include:
-
-- A structured intake form with privacy controls.
-- A review dashboard for advisors.
-- Provenance tracking for supporting information.
-- A recommendation quality rubric.
-- User feedback collection for iterative improvement.
+- Clarify before recommending.
+- Keep assumptions visible.
+- Separate public data support from AI interpretation.
+- Require human review before consultation use.
+- Disclose uncertainty in plain language.
+- Use only fictional or synthetic examples in public materials.
