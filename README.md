@@ -1,3 +1,9 @@
+## Portfolio Note
+
+This repository is a public-safe portfolio case prepared by QIAN Boyu (Bowie) for graduate study applications in AI, enterprise AI systems, and design-led AI innovation.
+
+The purpose of this repository is not to publish production code, but to demonstrate my ability to frame a real-world decision problem, design a human-in-the-loop AI workflow, structure system architecture, and translate an early-stage AI product into a responsible and explainable portfolio artifact.
+
 # ai-opc-gaokao-assistant[README.md](https://github.com/user-attachments/files/29405061/README.md)
 
 Public-safe portfolio documentation for a personalized AI-assisted Chinese university application planning system.
